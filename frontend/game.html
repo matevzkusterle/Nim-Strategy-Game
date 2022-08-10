@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game</title>
+</head>
+
+<style>
+  .row {
+    background-color: rgb(156, 188, 206);
+    height: 2rem;
+    margin: 0.5rem 0;
+    padding: 0 1rem;
+    display: flex;
+    align-items: center;
+  }
+</style>
+
+<script>
+  setInterval(() => {
+    window.location.reload();
+  }, 5 * 1000);
+</script>
+
+<body>
+  <h1>ID:{{id}} <strong></strong></h1>
+  <h3>Avtor: Matevz Kusterle</h3>
+  <h4>{{kljuc}}</h4>
+  
+  <div>
+    <div class="row">{{first}}</div>
+    <div class="row">{{second}}</div>
+    <div class="row">{{third}}</div>
+  </div>
+
+  <div style="margin-top: 4rem;">
+    <form action="/move/{{id}}" method="post">
+      <select name="row">
+        <option value="0">first</option>
+        <option value="1">second</option>
+        <option value="2">last</option>
+      </select>
+
+      <input type="number" name="count">
+      <input type="submit" value="Move">
+    </form>
+  </div>
+
+</body>
+
+</html>
