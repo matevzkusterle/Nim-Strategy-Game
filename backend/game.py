@@ -55,37 +55,46 @@ class Game:
     except:
       return False
 
-#hotel sem narediti tudi game mode, kjer lahko igraš proti računalniku, vendar ne deluje povsem vredu.
-#deluje že v princpiu, ampak ni pa najbolj pameten kot sem si zamislil. Hotel sem da oceni pozicijo in naredi najboljši move,
-# kar deluje z operacioj XOR (v pythonu ^).
-#  def get_best_move(self):
-#    """
-#    vrni najboljšo legalno potezo
-#    """
-#
-#    cp = self.board[:]
-#
-#    for row in range(3):
-#      for count in range(1, cp[row] + 1):
-#        # xor them
-#        cp[row] -= count
-#
-#        res = cp[0] ^ cp[1] ^ cp[2]  #XOR operacija
-#
-#        if res != 0:     # to je verjetno narobe
-#          return (row, count)
-#
-#    cp[row] += count
-#     
-#   če pa pač ni nobene take ki bi bila == 0, pa samo iz ene neprazne vzami enega
+  #hotel sem narediti tudi game mode, kjer lahko igraš proti računalniku, vendar ne deluje povsem vredu.
+  #deluje že v princpiu, ampak ni pa najbolj pameten kot sem si zamislil. Hotel sem da oceni pozicijo in naredi najboljši move,
+  # kar deluje z operacioj XOR (v pythonu ^).
+  def get_best_move(self):
+    """
+    vrni najboljšo legalno potezo
+    """
+    cp = self.board[:]
+
+    for row in range(3):
+      for count in range(1, cp[row] + 1):
+        
+        if cp[row] < count:
+          continue
+        cp[row] -= count
+
+        res = cp[0] ^ cp[1] ^ cp[2]  # XOR operacija
+
+        if res == 0:  # popravljeno, da preveri, če je res == 0
+          return (row, count)
+
+        cp[row] += count
+
+    #če ni nobene take poteze, vzemi eno iz neprazne vrstice
+    for row in range(3):
+      if cp[row] > 0:
+        return (row, 1)
+  #     
+  #   če pa pač ni nobene take ki bi bila == 0, pa samo iz ene neprazne vzami enega
 
   def __repr__(self):
     """
     vrni string, ki predstavlja igralno polje
     """
     out = ""
+    out += "Fist line" + "\n"
     out += (" [] "*self.board[0]) + "\n"
+    out += "Second line" + "\n"
     out += (" [] "*self.board[1]) + "\n"
+    out += "Third line" + "\n"
     out += (" [] "*self.board[2])
     return(out)
 
@@ -100,9 +109,9 @@ if __name__ == "__main__":
     print(game)
     print("-----------------")
 
-#   print("\n enemy \n")
-#   # enemy move
-#   row, count = game.get_best_move()
-#   game.make_move(row, count)
-#   print(game)
-#   print("-----------------")
+    print("\n enemy \n")
+    # enemy move
+    row, count = game.get_best_move()
+    game.make_move(row, count)
+    print(game)
+    print("-----------------")

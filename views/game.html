@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game</title>
+
+</head>
+
+<body>
+  <h1>ID: {{id}}</h1>
+  <h3>Author: Matevz Kusterle</h3>
+  <h4>{{kljuc}}</h4>
+
+  <!-- Game board -->
+  <div class="game-board">
+    <div class="row" id="first-row">{{first}}</div>
+    <div class="row" id="second-row">{{second}}</div>
+    <div class="row" id="third-row">{{third}}</div>
+  </div>
+
+  <!-- Move form -->
+  <div style="margin-top: 4rem;">
+    <form action="/move/{{id}}" method="post" id="move-form">
+      <label for="row">Row:</label>
+      <select id="row" name="row">
+        <option value="0">First</option>
+        <option value="1">Second</option>
+        <option value="2">Last</option>
+      </select>
+
+      <label for="count">Count:</label>
+      <input type="number" id="count" name="count" min="1" required>
+      
+      <button type="submit">Move</button>
+    </form>
+  </div>
+
+  <!-- Link to the external script file -->
+  <script src="/static/js/script.js"></script>
+
+</body>
+
+</html>

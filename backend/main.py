@@ -1,91 +1,103 @@
 from game import *
-from bottle import route, run, template, static_file, redirect, get, post, request, response
+from bottle import route, run, template, static_file, redirect, get, post, request
 from uuid import uuid4
 from tinydb import TinyDB, Query
 import os
+import json  # Don't forget to import json if you're using it
 
 
-def better_static_file(filename, root, obj):
-  with open(os.path.join(root,filename), "r") as f:
-    f = f.read()
-    for k in obj.keys():
-      f = f.replace("{{"+k+"}}", obj[k])
-    return f
+
+@get('/static/<filename:path>')
+def static(filename):
+    return static_file(filename, root='static')
    
-ROOT = "D:\Matevz\Desktop\projekt\src"
+SERVER_PORT = int(os.environ.get('BOTTLE_PORT', 8080))
+RELOADER = os.environ.get('BOTTLE_RELOADER', True)
 
-# init database
-db = TinyDB("../../db.json")
+# Initialize database
+db = TinyDB("../db.json")
 print("db init done")
 
-# handle main page
+# Handle main page
 @get('/')
 def index():
-    return static_file("frontend/index.html", root=ROOT)
+    return template('index.html')
 
-# handle new game
+# Handle new game
 @route('/new')
 def new_game():
-    # zgeneriri unikatn game ID 
+    # Generate a unique game ID
     uuid = str(uuid4())
-    # začni igro z tem IDjem
+    # Start a new game with this ID
     game = Game()
-    # shrani to igro v bazo
+    # Save this game to the database
     db.insert({'id': uuid, 'game': game.game_state_to_JSON()})
-    # preusmeri userja na stran z igro z idjem
+    # Redirect the user to the game page with the ID
     redirect("/game/{}".format(uuid))
 
-# handle existing game
+# Handle existing game
 @get('/game/<uuid>')
-def new_game(uuid):
-    # preberi igro iz baze
-    # game = Game()
+def existing_game(uuid):
+    # Read game from the database
     game_state = db.search(Query().id == uuid)
     if(len(game_state) == 0):
         return "Game does not exist"
 
-    curr_game =json.loads(str( game_state[0]['game']))
+    curr_game = json.loads(str(game_state[0]['game']))
     game = Game()
-    game.game_state_from_data(curr_game["board"],curr_game["player"] )
+    game.game_state_from_data(curr_game["board"], curr_game["player"])
 
     if game.is_done():
-        return("konec lonec")
+        return "Game over"
 
-    # pripravi podatke za template
-    template = {
-      "id":uuid,
-      "first":" [] " * game.board[0],
-      "second":" [] " * game.board[1],
-      "third":" [] " * game.board[2],
-      "kljuc": "PRAVILA IGRE: Igralca izmenično odstranjujeta žetone. Igralec lahko vzame poljublno mnogo žetenov, vendar le iz ene vrstice. Zmagovalec je tisti, ki prepusti nasprotniku zadnji žeton (torej zgubi tisti, ki mu ostane zadnji žeton)."
+    # Prepare data for the template
+    template_data = {
+        "id": uuid,
+        "first": " [] " * game.board[0],
+        "second": " [] " * game.board[1],
+        "third": " [] " * game.board[2],
+        "kljuc": "PRAVILA IGRE: Igralca izmenično odstranjujeta žetone. Igralec lahko vzame poljublno mnogo žetonov, vendar le iz ene vrstice. Zmagovalec je tisti, ki prepusti nasprotniku zadnji žeton (torej zgubi tisti, ki mu ostane zadnji žeton)."
     }
-    return better_static_file("frontend/game.html", ROOT, template)
+    return template("game.html", **template_data)
 
-    print()
-
-# handle move
+# Handle move
 @post('/move/<uuid>')
 def make_move(uuid):
     row = request.forms.get('row')
     count = request.forms.get('count')
 
-    # preberi igro iz baze
+    # Read game from the database
     game_state = db.search(Query().id == uuid)
     if(len(game_state) == 0):
         return "Game does not exist"
     
-    curr_game =json.loads(str( game_state[0]['game']))
+    curr_game = json.loads(str(game_state[0]['game']))
     game = Game()
-    game.game_state_from_data(curr_game["board"],curr_game["player"] )
+    game.game_state_from_data(curr_game["board"], curr_game["player"])
 
-    # make moves
+    # Make the move
     if(game.make_move(int(row), int(count))):
-        # shrani novo stanje igre v bazo
+        # Save the new game state in the database
         db.update({'game': game.game_state_to_JSON()}, Query().id == uuid)
-        # preusmeri userja na stran z igro z idjem
+        # Redirect the user to the game page with the ID
         redirect("/game/{}".format(uuid))
     else:
         return "Illegal move"
 
+@get('/game-state/<uuid>')
+def game_state(uuid):
+    game_state = db.search(Query().id == uuid)
+    if len(game_state) == 0:
+        return {"updated": False}
+    
+    curr_game = json.loads(str(game_state[0]['game']))
+    return {
+        "updated": True,
+        "first": " [] " * curr_game["board"][0],
+        "second": " [] " * curr_game["board"][1],
+        "third": " [] " * curr_game["board"][2]
+    }
 
-run(host='0.0.0.0', port=8000)
+# Run the server on the given port, e.g., http://localhost:8080/
+if __name__ == "__main__":
+    run(host='localhost', port=SERVER_PORT, reloader=RELOADER)
