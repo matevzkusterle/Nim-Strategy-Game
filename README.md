@@ -38,7 +38,8 @@ There are three piles of stones with:
 To run the app, follow these steps:
 
 1. Open the terminal.
-2. Navigate to the app folder:
+2. Navigate to the app folder.
+3. Run the command:
    ```bash
-   cd path/to/your/app
+   python .\backend\main.py
 
