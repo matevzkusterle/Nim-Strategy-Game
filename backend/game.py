@@ -87,7 +87,7 @@ class Game:
 
   def __repr__(self):
     """
-    vrni string, ki predstavlja igralno polje
+    vrni string, ki predstavlja class Game
     """
     out = ""
     out += "Fist line" + "\n"

@@ -1,6 +1,6 @@
 # Nim strategy game
 
-> avtor: **Matevž Kusterle**
+> Author: **Matevž Kusterle**
 
 Nim is a mathematical game of strategy where two players take turns removing objects (such as stones) from piles. The objective is to be the player who removes the last stone.
 
