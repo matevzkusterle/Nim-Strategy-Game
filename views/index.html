@@ -1,28 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>357 Game</title>
-
-  
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nim Game</title>
+    <link rel="stylesheet" href="/static/css/style.css"> <!-- Optional -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding-top: 50px;
+        }
+        h1 {
+            font-size: 3em;
+            margin-bottom: 40px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            margin: 10px;
+            font-size: 1.5em;
+            color: white;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
-
 <body>
-  <h1>357 Game</h1>
-  <h3>Author: Matevz Kusterle</h3>
-
-  <!-- Invite a friend form -->
-  <div style="margin-top: 2rem;">
-    <form action="/new" method="get">
-      <button type="submit">Invite a Friend</button>
-    </form>
-  </div>
-
-  <!-- Link to the external script file (if any) -->
-  <script src="/static/js/script.js"></script>
+    <h1>Welcome to Nim Game</h1>
+    <div>
+        <a href="/play/computer"><button class="btn">Play Against Computer</button></a>
+        <a href="/play/friend"><button class="btn">Play Against a Friend</button></a>
+    </div>
 </body>
-
 </html>

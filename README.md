@@ -1,11 +1,44 @@
-# Projektna naloga, igra 357
+# Nim strategy game
 
 > avtor: **Matevž Kusterle**
 
-## Opis igre
+Nim is a mathematical game of strategy where two players take turns removing objects (such as stones) from piles. The objective is to be the player who removes the last stone.
 
-*Dane so tri vrstice z žetoni. V prvi so trije, v drugi dva, v tretji pa jih je sedem. Igralca izmenično odstranjujeta žetone. Vsak igralec lahko (ko je napotezi) vzame poljublno mnogo žetenov, vendar le iz ene vrstice. Zmagovalec je tisti, ki prepusti nasprotniku zadnji žeton (torej zgubi tisti, ki mu ostane zadnji žeton).*
+In a version of Nim with three piles, containing 3, 5, and 7 stones respectively, the rules are as follows:
 
-## Kako zagnati igro
+## Basic Rules of Nim:
 
-*Najprej odpremo datoteke v programu VS code ali katerem drugem podobnem programu. Najprej odpremo nov terminal ter z dvema zaporednima vkazoma 'cd' (change directory) pomaknemo najprej v mapo 'src', nato pa še v mapo 'backend'. Tako lahko zaženemo ukaz 'python .\main.py'. Igra se zažene. Na spletu poiščemo localhost 8000, tako pridemo v igro. Spletni naslov naše igre lahko delimo prijatelju in igramo igro proti njemu. Pozor: stran se osvežuje vsakih 5 sekund* 
+### Initial Setup:
+There are three piles of stones with:
+- **Pile 1**: 3 stones
+- **Pile 2**: 5 stones
+- **Pile 3**: 7 stones
+
+### Players:
+- There are two players, who alternate turns.
+
+### Taking Turns:
+- On each player's turn, they must choose **one pile** and remove **at least one stone** from that pile.
+- The player can remove as many stones as they wish, but only from the selected pile. They cannot take stones from multiple piles in a single turn.
+
+### Winning Condition:
+- The game continues until all the stones are removed.
+- The player who **takes the last stone(s)** wins the game. The last stone can be from any pile, and it doesn’t matter how many are left when it’s their turn.
+
+### Strategy:
+- Nim is known for having a "winning strategy" based on the **Nim-sum**, which is a calculation done using the binary XOR (exclusive or) operation on the number of stones in all piles.
+- If the Nim-sum (the XOR of the number of stones in all piles) is **0** at the beginning of your turn, your opponent has a winning strategy if they play optimally.
+- If the Nim-sum is **non-zero**, you have a winning strategy.
+
+
+## Running the App
+
+## Running the App
+
+To run the app, follow these steps:
+
+1. Open the terminal.
+2. Navigate to the app folder:
+   ```bash
+   cd path/to/your/app
+
