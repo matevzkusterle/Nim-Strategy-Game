@@ -48,7 +48,8 @@ def existing_game(uuid):
     game.game_state_from_data(curr_game["board"], curr_game["player"])
 
     if game.is_done():
-        return "Game over"
+        return template('game_over.html', winner=game.player)
+        #return "Game over"  #make the html that tells you which player has won
 
     # Prepare data for the template
     template_data = {

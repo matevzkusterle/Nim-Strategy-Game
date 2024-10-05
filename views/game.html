@@ -10,9 +10,20 @@
 </head>
 
 <body>
-  <h1>ID: {{id}}</h1>
+  <h1>You can share the provided link to your friend so you can play against each other from different devices</h1>
+  <button onclick="copyLink()">Copy Link</button>
+  <script>
+    function copyLink() {
+      const link = window.location.href;
+      navigator.clipboard.writeText(link).then(() => {
+        alert('Link copied to clipboard');
+      }).catch(err => {
+        console.error('Failed to copy: ', err);
+      });
+    }
+  </script>
   <h3>Author: Matevz Kusterle</h3>
-  <h4>Player to move (0 or 1) {{kljuc}}</h4>
+  <h4>Player to move: Player {{kljuc}}</h4>
 
   <!-- Game board -->
   <div class="game-board">
