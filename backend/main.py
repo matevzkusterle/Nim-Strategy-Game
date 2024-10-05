@@ -3,7 +3,7 @@ from bottle import route, run, template, static_file, redirect, get, post, reque
 from uuid import uuid4
 from tinydb import TinyDB, Query
 import os
-import json  # Don't forget to import json if you're using it
+import json
 
 
 
@@ -23,8 +23,8 @@ print("db init done")
 def index():
     return template('index.html')
 
-# Handle new game
-@route('/new')
+# Handle new game against a friend
+@route('/play/friend')
 def new_game():
     # Generate a unique game ID
     uuid = str(uuid4())
@@ -56,7 +56,7 @@ def existing_game(uuid):
         "first": " [] " * game.board[0],
         "second": " [] " * game.board[1],
         "third": " [] " * game.board[2],
-        "kljuc": "PRAVILA IGRE: Igralca izmenično odstranjujeta žetone. Igralec lahko vzame poljublno mnogo žetonov, vendar le iz ene vrstice. Zmagovalec je tisti, ki prepusti nasprotniku zadnji žeton (torej zgubi tisti, ki mu ostane zadnji žeton)."
+        "kljuc": game.player
     }
     return template("game.html", **template_data)
 
@@ -82,7 +82,8 @@ def make_move(uuid):
         # Redirect the user to the game page with the ID
         redirect("/game/{}".format(uuid))
     else:
-        return "Illegal move"
+        return template('illegal_move.html')
+       #return "Illegal move"
 
 @get('/game-state/<uuid>')
 def game_state(uuid):

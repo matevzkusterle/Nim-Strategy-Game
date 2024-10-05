@@ -55,9 +55,6 @@ class Game:
     except:
       return False
 
-  #hotel sem narediti tudi game mode, kjer lahko igraš proti računalniku, vendar ne deluje povsem vredu.
-  #deluje že v princpiu, ampak ni pa najbolj pameten kot sem si zamislil. Hotel sem da oceni pozicijo in naredi najboljši move,
-  # kar deluje z operacioj XOR (v pythonu ^).
   def get_best_move(self):
     """
     vrni najboljšo legalno potezo
