@@ -23,6 +23,81 @@ print("db init done")
 def index():
     return template('index.html')
 
+@get('/play/computer')
+def new_game_computer():
+    # Generate a unique game ID
+    uuid = str(uuid4())
+    # Start a new game with this ID
+    game = Game()
+    # Save this game to the database
+    db.insert({'id': uuid, 'game': game.game_state_to_JSON()})
+    # Redirect the user to the game page with the ID
+    redirect('/game/computer/{}'.format(uuid))
+
+# Handle existing game against a computer
+@get('/game/computer/<uuid>')
+def existing_game(uuid):
+    # Read game from the database
+    game_state = db.search(Query().id == uuid)
+    if(len(game_state) == 0):
+        return "Game does not exist"
+
+    curr_game = json.loads(str(game_state[0]['game']))
+    game = Game()
+    game.game_state_from_data(curr_game["board"], curr_game["player"])
+
+    if game.is_done():
+        return template('game_over_computer.html', winner = game.player)
+        #return "Game over"  #make the html that tells you which player has won
+
+    # Prepare data for the template
+    template_data = {
+        "id": uuid,
+        "first": " [] " * game.board[0],
+        "second": " [] " * game.board[1],
+        "third": " [] " * game.board[2],
+        "kljuc": game.player
+    }
+    return template("game_computer.html", **template_data)
+
+
+# Handle move against a computer
+@post('/move/computer/<uuid>')
+def make_move(uuid):
+    row = request.forms.get('row')
+    count = request.forms.get('count')
+
+    # Read game from the database
+    game_state = db.search(Query().id == uuid)
+    if(len(game_state) == 0):
+        return "Game does not exist"
+    
+    curr_game = json.loads(str(game_state[0]['game']))
+    game = Game()
+    game.game_state_from_data(curr_game["board"], curr_game["player"])
+
+    # Make the move
+    if(game.make_move(int(row), int(count))):
+        # Save the new game state in the database
+        db.update({'game': game.game_state_to_JSON()}, Query().id == uuid)
+        # here the computer needs to make a move
+        game_state = db.search(Query().id == uuid)
+        if(len(game_state) == 0):
+            return "Game does not exist"
+    
+        curr_game = json.loads(str(game_state[0]['game']))
+        game = Game()
+        game.game_state_from_data(curr_game["board"], curr_game["player"])
+        row, count = game.get_best_move()
+        game.make_move(row, count)
+        if game.is_done():
+            return template('game_over_computer.html', winner = game.player)
+        db.update({'game': game.game_state_to_JSON()}, Query().id == uuid)
+        # Redirect the user to the game page with the ID
+        redirect("/game/computer/{}".format(uuid))
+    else:
+        return template('illegal_move.html')
+
 # Handle new game against a friend
 @route('/play/friend')
 def new_game():
@@ -35,7 +110,7 @@ def new_game():
     # Redirect the user to the game page with the ID
     redirect("/game/{}".format(uuid))
 
-# Handle existing game
+# Handle existing game against a friend
 @get('/game/<uuid>')
 def existing_game(uuid):
     # Read game from the database
@@ -61,7 +136,7 @@ def existing_game(uuid):
     }
     return template("game.html", **template_data)
 
-# Handle move
+# Handle move against a friend
 @post('/move/<uuid>')
 def make_move(uuid):
     row = request.forms.get('row')
@@ -84,8 +159,9 @@ def make_move(uuid):
         redirect("/game/{}".format(uuid))
     else:
         return template('illegal_move.html')
-       #return "Illegal move"
 
+
+#not sure if we need this or even why i made this years ago
 @get('/game-state/<uuid>')
 def game_state(uuid):
     game_state = db.search(Query().id == uuid)

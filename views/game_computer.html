@@ -10,20 +10,6 @@
 </head>
 
 <body>
-  <h1>You can share the provided link to your friend so you can play against each other from different devices</h1>
-  <button onclick="copyLink()">Copy Link</button>
-  <script>
-    function copyLink() {
-      const link = window.location.href;
-      navigator.clipboard.writeText(link).then(() => {
-        alert('Link copied to clipboard');
-      }).catch(err => {
-        console.error('Failed to copy: ', err);
-      });
-    }
-  </script>
-  <h4>Player to move: Player {{kljuc}}</h4>
-
   <!-- Game board -->
   <div class="game-board">
     <div class="row" id="first-row">{{first}}</div>
@@ -33,7 +19,7 @@
 
   <!-- Move form -->
   <div style="margin-top: 4rem;">
-    <form action="/move/{{id}}" method="post" id="move-form">
+    <form action="/move/computer/{{id}}" method="post" id="move-form">
       <label for="row">Row:</label>
       <select id="row" name="row">
         <option value="0">First</option>

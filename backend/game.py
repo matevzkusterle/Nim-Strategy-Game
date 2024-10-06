@@ -59,6 +59,7 @@ class Game:
     """
     vrni najboljšo legalno potezo
     """
+    #make a copy of the board
     cp = self.board[:]
 
     for row in range(3):
