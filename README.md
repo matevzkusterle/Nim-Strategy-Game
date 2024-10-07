@@ -7,6 +7,7 @@ In a version of Nim with three piles, containing 3, 5, and 7 stones respectively
 
 ## Basic Rules of Nim:
 
+
 ### Initial Setup:
 There are three piles of stones with:
 - **Pile 1**: 3 stones
