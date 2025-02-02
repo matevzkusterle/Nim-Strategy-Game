@@ -15,7 +15,7 @@ SERVER_PORT = int(os.environ.get('BOTTLE_PORT', 8080))
 RELOADER = os.environ.get('BOTTLE_RELOADER', True)
 
 # Initialize database
-db = TinyDB("../db.json")
+db = TinyDB("db.json")
 print("db init done")
 
 # Handle main page

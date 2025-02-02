@@ -8,13 +8,13 @@
 <body>
 <h1>Game Result</h1>
 <p>The winner is: 
-    % if winner == 0:
+    {% if winner == 0 %}
         You have won
-    % elif winner == 1:
+    {% elif winner == 1 %}
         You lost
-    % end
+    {% endif %}
 </p>
-<p>Congratulations to all the players! Urh je pićka</p>
+<p>Congratulations to all the players!</p>
 </body>
 <div></div>
 <a href="/"><button class="btn">Back to the home page</button></a>
