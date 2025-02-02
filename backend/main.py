@@ -75,6 +75,7 @@ def make_move(uuid):
     game = Game()
     game.game_state_from_data(curr_game["board"], curr_game["player"])
 
+
     # Make the move
     if(game.make_move(int(row), int(count))):
         # Save the new game state in the database
@@ -87,6 +88,8 @@ def make_move(uuid):
         curr_game = json.loads(str(game_state[0]['game']))
         game = Game()
         game.game_state_from_data(curr_game["board"], curr_game["player"])
+        if game.is_done():
+            return template('game_over_computer.html', winner = game.player)
         row, count = game.get_best_move()
         game.make_move(row, count)
         if game.is_done():
