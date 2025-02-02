@@ -8,3 +8,5 @@ def f():
                 if i ^ j ^ k == 0:
                     s.append([i,j,k])
     return s
+
+f()

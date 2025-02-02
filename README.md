@@ -33,8 +33,6 @@ There are three piles of stones with:
 
 ## Running the App
 
-## Running the App
-
 To run the app, follow these steps:
 
 1. Open the terminal.

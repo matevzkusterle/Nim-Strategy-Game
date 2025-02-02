@@ -30,7 +30,7 @@ class Game:
     """
     preveri ce je igra koncana
     """
-    if (sum(self.board) == 1):
+    if (sum(self.board) == 0):
       return True
     return False
 
