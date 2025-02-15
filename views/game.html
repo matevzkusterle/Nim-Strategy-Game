@@ -1,59 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Game</title>
-
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            font-size: 2rem;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+        h4 {
+            font-size: 1.2rem;
+            color: #34495e;
+            margin-bottom: 1.5rem;
+        }
+        .game-board {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+            display: inline-block;
+            text-align: left;
+        }
+        .row-label {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #34495e;
+            margin-bottom: 0.5rem;
+        }
+        .row {
+            font-size: 1.5rem;
+            color: #3498db;
+            margin-bottom: 1rem;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+        label {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #34495e;
+        }
+        select, input[type="number"] {
+            padding: 0.5rem;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+        }
+        button {
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+    </style>
 </head>
-
 <body>
-  <h1>You can share the provided link to your friend so you can play against each other from different devices</h1>
-  <button onclick="copyLink()">Copy Link</button>
-  <script>
-    function copyLink() {
-      const link = window.location.href;
-      navigator.clipboard.writeText(link).then(() => {
-        alert('Link copied to clipboard');
-      }).catch(err => {
-        console.error('Failed to copy: ', err);
-      });
-    }
-  </script>
-  <h4>Player to move: Player {{kljuc}}</h4>
+    <h1>You can share the provided link to your friend so you can play against each other from different devices</h1>
+    <button onclick="copyLink()">Copy Link</button>
+    <script>
+        function copyLink() {
+            const link = window.location.href;
+            navigator.clipboard.writeText(link).then(() => {
+                alert('Link copied to clipboard');
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+            });
+        }
+    </script>
+    <h4>Player to move: Player {{kljuc}}</h4>
 
-  <!-- Game board -->
-  <div class="game-board">
-    <div class="row-label">First Row:</div>
-    <div class="row" id="first-row">{{first}}</div>
-    <div class="row-label">Second Row:</div>
-    <div class="row" id="second-row">{{second}}</div>
-    <div class="row-label">Third Row:</div>
-    <div class="row" id="third-row">{{third}}</div>
-  </div>
+    <!-- Game board -->
+    <div class="game-board">
+        <div class="row-label">First Row:</div>
+        <div class="row" id="first-row">{{first}}</div>
+        <div class="row-label">Second Row:</div>
+        <div class="row" id="second-row">{{second}}</div>
+        <div class="row-label">Third Row:</div>
+        <div class="row" id="third-row">{{third}}</div>
+    </div>
 
-  <!-- Move form -->
-  <div style="margin-top: 4rem;">
-    <form action="/move/{{id}}" method="post" id="move-form">
-      <label for="row">Row:</label>
-      <select id="row" name="row">
-        <option value="0">First</option>
-        <option value="1">Second</option>
-        <option value="2">Last</option>
-      </select>
+    <!-- Move form -->
+    <div style="margin-top: 4rem;">
+        <form action="/move/{{id}}" method="post" id="move-form">
+            <label for="row">Row:</label>
+            <select id="row" name="row">
+                <option value="0">First</option>
+                <option value="1">Second</option>
+                <option value="2">Last</option>
+            </select>
 
-      <label for="count">Count:</label>
-      <input type="number" id="count" name="count" min="1" required>
-      
-      <button type="submit">Move</button>
-    </form>
-  </div>
+            <label for="count">Count:</label>
+            <input type="number" id="count" name="count" min="1" required>
+            
+            <button type="submit">Move</button>
+        </form>
+    </div>
 
-  <!-- Link to the external script file -->
-  <script src="/static/js/script.js"></script>
-
+    <!-- Link to the external script file -->
+    <script src="/static/js/script.js"></script>
 </body>
-
 </html>

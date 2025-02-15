@@ -4,19 +4,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Game Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            font-size: 2rem;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+        p {
+            font-size: 1.2rem;
+            color: #34495e;
+            margin-bottom: 1.5rem;
+        }
+        .btn {
+            padding: 10px 20px;
+            font-size: 1rem;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+        .btn:hover {
+            background-color: #2980b9;
+        }
+    </style>
 </head>
 <body>
-<h1>Game Result</h1>
-<p>Result: 
-    % if winner == 1:
-        You have won
-    % elif winner == 0:
-        You lost
-    % end
-</p>
-<p>Congratulations to all the players!</p>
+    <h1>Game Result</h1>
+    <p>Result: 
+        % if winner == 1:
+            You have won
+        % elif winner == 0:
+            You lost
+        % end
+    </p>
+    <p>Congratulations to all the players!</p>
+    <a href="/" class="btn">Back to the home page</a>
 </body>
-<div></div>
-<a href="/"><button class="btn">Back to the home page</button></a>
-</div>
 </html>

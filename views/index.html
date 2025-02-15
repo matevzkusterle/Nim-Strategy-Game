@@ -4,39 +4,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nim Game</title>
-    <link rel="stylesheet" href="/static/css/style.css"> <!-- Optional -->
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
             text-align: center;
-            padding-top: 50px;
         }
         h1 {
-            font-size: 3em;
-            margin-bottom: 40px;
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+        }
+        .game-modes {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
         }
         .btn {
             display: inline-block;
             padding: 15px 30px;
-            margin: 10px;
-            font-size: 1.5em;
+            font-size: 1.2rem;
             color: white;
-            background-color: #007BFF;
+            background-color: #3498db;
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
         }
         .btn:hover {
-            background-color: #0056b3;
+            background-color: #2980b9;
         }
     </style>
 </head>
 <body>
     <h1>Welcome to Nim Game</h1>
-    <div>
-        <a href="/play/computer"><button class="btn">Play Against Computer</button></a>
-        <a href="/play/friend"><button class="btn">Play Against a Friend</button></a>
+    <div class="game-modes">
+        <a href="/play/computer" class="btn">Play Against Computer</a>
+        <a href="/play/friend" class="btn">Play Against a Friend</a>
     </div>
 </body>
 </html>
