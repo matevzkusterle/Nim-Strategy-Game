@@ -5,3 +5,4 @@ backend/__pycache__/
 backend/*.pyc
 backend/__pycache__/game.cpython-312.pyc
 db.json
+.vscode/
