@@ -35,12 +35,11 @@ There are three piles of stones with:
 
 To run the app, follow these steps:
 
-1. Open the terminal.
+1. Open new terminal (at first another ngrok terminal will open, do not mind it for now).
 2. Navigate to the app folder.
 3. Run the command:
    ```bash
    python .\backend\main.py
 
 4. For mulitplayer mode:
-   Also open another terminal and paste 'ngrok http 8080' and then open and share the newly provided link
-   which exposed localhost server.
+   When we open our folder in VS Code, the ngrok terminal automatically opens. Just open another terminal to start the game, then swith to previous terminal to open and share the link.
