@@ -41,5 +41,7 @@ To run the app, follow these steps:
    ```bash
    python .\backend\main.py
 
-4. For mulitplayer mode:
+
+4. For multiplayer mode:
+```
    When we open our folder in VS Code, the ngrok terminal automatically opens. Just open another terminal to start the game, then swith to previous terminal to open and share the link.
