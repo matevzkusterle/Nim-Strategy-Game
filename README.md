@@ -43,5 +43,5 @@ To run the app, follow these steps:
 
 
 4. For multiplayer mode:
-```
-   When we open our folder in VS Code, the ngrok terminal automatically opens. Just open another terminal to start the game, then swith to previous terminal to open and share the link.
+   - When we open our folder in VS Code, the ngrok terminal automatically opens.
+   - Just open another terminal to start the game, then switch to the previous terminal to open and share the link.
