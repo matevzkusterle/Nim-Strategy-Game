@@ -41,3 +41,6 @@ To run the app, follow these steps:
    ```bash
    python .\backend\main.py
 
+4. For mulitplayer mode:
+   Also open another terminal and paste 'ngrok http 8080' and then open and share the newly provided link
+   which exposed localhost server.
