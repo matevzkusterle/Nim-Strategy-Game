@@ -40,8 +40,40 @@ To run the app, follow these steps:
 3. Run the command:
    ```bash
    python .\backend\main.py
-
-
-4. For multiplayer mode:
+4. Mulitplayer mode (for this you need tho install Ngrok -> instuctions bellow)
    - When we open our folder in VS Code, the ngrok terminal automatically opens.
    - Just open another terminal to start the game, then switch to the previous terminal to open and share the link.
+
+
+
+# 🚀 Ngrok Setup Guide for Running a Bottle Server in VS Code
+
+## 🔹 Prerequisites
+- Python installed
+- Bottle framework installed (`pip install bottle`)
+- VS Code installed
+- Ngrok installed ([Download here](https://ngrok.com/download))
+
+---
+
+## ✅ Step 1: Install Ngrok (If Not Installed)
+### 🔸 Windows
+```sh
+# Download Ngrok from the official website
+https://ngrok.com/download
+
+# Extract the file and place `ngrok.exe` in a known folder (e.g., C:\ngrok\)
+
+# Optionally, add Ngrok to your system PATH
+```
+
+### 🔸 Mac/Linux (Terminal Command)
+```sh
+curl -s https://ngrok-agent.s3.amazonaws.com/ngrok.asc | sudo tee /etc/apt/trusted.gpg.d/ngrok.asc >/dev/null && echo "deb https://ngrok-agent.s3.amazonaws.com buster main" | sudo tee /etc/apt/sources.list.d/ngrok.list && sudo apt update && sudo apt install ngrok
+```
+
+### 🔸 Verify Ngrok Installation
+```sh
+ngrok version
+```
+
